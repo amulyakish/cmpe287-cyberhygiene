@@ -1,0 +1,17 @@
+alter table answer drop foreign key FKhibh7s8fi4ogkfrk198yp480t;
+drop table if exists answer;
+drop table if exists ANSWER_ID_SEQ;
+drop table if exists question_answer;
+drop table if exists QUESTION_ID_SEQ;
+drop table if exists session;
+drop table if exists SESSION_ID_SEQ;
+create table answer (answerId bigint not null, response varchar(1024), riskScore integer, question_id bigint not null, primary key (answerId)) engine=InnoDB;
+create table ANSWER_ID_SEQ (next_val bigint) engine=InnoDB;
+insert into ANSWER_ID_SEQ values ( 1 );
+create table question_answer (questionId bigint not null, question varchar(1024), primary key (questionId)) engine=InnoDB;
+create table QUESTION_ID_SEQ (next_val bigint) engine=InnoDB;
+insert into QUESTION_ID_SEQ values ( 1 );
+create table session (sessionId bigint not null, answer varchar(1024), conversationId varchar(255), question varchar(1024), primary key (sessionId)) engine=InnoDB;
+create table SESSION_ID_SEQ (next_val bigint) engine=InnoDB;
+insert into SESSION_ID_SEQ values ( 1 );
+alter table answer add constraint FKhibh7s8fi4ogkfrk198yp480t foreign key (question_id) references question_answer (questionId);
